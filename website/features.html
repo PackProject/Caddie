@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id="main">
+            <table cellspacing="0">
+                <tr id="headerRow">
+                    <td id="header">
+                        <img id="headerImage" src="img/header.png" usemap="#test">
+                        <map name="test">
+                            <area id="home" shape="rect" coords="501, 11, 572, 37" href="index.html">
+                            <area id="download" shape="rect" coords="519, 40, 655, 67" href="download.html">
+                            <area id="features" shape="rect" coords="602, 70, 735, 97" href="features.html">
+                            <area id="github" shape="rect" coords="682, 100, 787, 132" href="https://github.com/PackProject/Caddie" target="_blank">
+                        </map>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="content" valign="top">
+                        <p><blue>(B)+(-)+(2):</blue> Button combination that resets the current shot before
+                        it has ended. If the Retry Shot Menu is enabled, a shot can also be reset after it has ended by selecting "Try Again".</p>
+
+                        <p><blue>Exception handler:</blue> A bunch of text that will show up if the game crashes,
+                        which might be Caddie's fault. If this happens to you, please send screenshots in 
+                        <a href="https://discord.gg/BW23QvJaZk" target="_blank">the Discord</a>!</p>
+
+                        <h1>(+) Menu</h1>
+
+                        <p>The yellow <yellow>⬤</yellow> circle indicates a feature that has also been implemented in <yellow>Frisbee Golf</yellow>.</p>
+
+                        <p><yellow>⬤</yellow> <green>Hole:</green> Selects a hole to play.</p>
+
+                        <p><green>Repeat Hole:</green> If set to Yes, the current hole will restart after it's
+                        completed. If set to No, completing a hole will transition to the next hole sequentially,
+                        as the game typically would.</p>
+
+                        <p><green>Pin Type:</green> Sets or randomly selects one of the pin locations in the
+                        current hole. For most holes, there are six of these, and Caddie can also randomize
+                        within two groups of them ("A pins" and "B pins").</p>
+
+                        <ul>
+                            <li>A pins would normally occur in the game when the player's score is -5 or lower, and are meant
+                                to be more difficult.
+                            </li>
+                            <li>B pins would normally occur in the game when the player's score is -4 or higher, and are meant
+                                to be more forgiving.
+                            </li>
+                            <li>Pins in holes 19, 20, and 21 are not labeled as A or B because those holes are not
+                                part of any 9 or 18 hole course. 
+                            </li>
+                            <li>Pin selection is disabled on hole 18 because it only has one pin location. This is
+                                the only hole where this is the case.
+                            </li>
+                        </ul>
+                        
+                        <p><yellow>⬤</yellow> <green>Wind Selector:</green> Specifies the direction and speed of the current wind. If
+                        the speed is set to Random, different speed randomization ranges can be selected that correspond
+                        with the randomization ranges that the game uses for different courses.</p>
+
+                        <p>The wind selection tools allow for the creation of scenarios that would not normally exist in
+                        the game. For example, speeds greater than 20mph/10m/s are only included in Resort C, Classic C,
+                        and Special, but Caddie does not stop the user from selecting those speeds on any hole.
+                        </p>
+
+                        <p><green>Show Replay Info:</green> Renders a sphere centered around the hole that shows the area 
+                        that will trigger a replay on the current shot. Replays become much more sensitive if the ball ever
+                        hits the pin or flag, which is reflected in the radius by expanding significantly and turning blue.</p>
+                    
+                        <p>For putts on the green, Show Replay Info will not do anything if the current putt cannot replay from
+                        any angle. If it can, the putting guideline will have the same color-coding as the sphere: red if it
+                        won't replay from the current angle, and green if it will. Putts from off the green do not currently
+                        display any replay information.</p>
+
+                        <p><green>Enable Retry Shot Menu:</green> Prompts the user to either continue the game or retry the current
+                        shot after each stroke.</p>
+
+                        <p><green>Apply and Restart:</green> Applies changes to settings and restarts the hole. The settings in the
+                        (+) menu will not be reflected in the game until this option is selected.</p>
+                        
+                        <p><green>Quit Game:</green> Exits to the main menu.</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="footer" background="img/footer.png">
+                        <span id="credit">website by <a href="https://kataryn.com" target="_blank">cyndifusic</a> © 2026</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>

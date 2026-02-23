@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
+    <body>
+        <div id="main">
+            <table cellspacing="0">
+                <tr id="headerRow">
+                    <td id="header">
+                        <img id="headerImage" src="img/header.png" usemap="#test">
+                        <map name="test">
+                            <area id="home" shape="rect" coords="501, 11, 572, 37" href="index.html">
+                            <area id="download" shape="rect" coords="519, 40, 655, 67" href="download.html">
+                            <area id="features" shape="rect" coords="602, 70, 735, 97" href="features.html">
+                            <area id="github" shape="rect" coords="682, 100, 787, 132" href="https://github.com/PackProject/Caddie" target="_blank">
+                        </map>
+                    </td>
+                </tr>
 
-    <p>
-        dummy
-    </p>
+                <tr>
+                    <td id="content" valign="top">
+                        <p>Caddie is a practice mod for Golf in Wii Sports Resort. With utilities
+                            like selecting winds and retrying shots, it crucially improves the
+                            learning experience, whether you play for score or speed.
+                        </p>
 
-</body>
+                        <img src="img/screenshot.png" width="100%">
+
+                        <p>Caddie has undergone many changes since it was initially created by kiwi 
+                            in 2020. New functionality is still in development, and any new builds
+                            will be available through this website. To get started, follow the
+                            <a href="download.html">install guide</a>.</p>
+
+                        <p>For discussion and troubleshooting, please join the <a href="https://discord.gg/BW23QvJaZk" target="_blank">Discord server</a>.</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="footer" background="img/footer.png">
+                        <span id="credit">website by <a href="https://kataryn.com" target="_blank">cyndifusic</a> © 2026</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 
 </html>

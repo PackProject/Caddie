@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id="main">
+            <table cellspacing="0">
+                <tr id="headerRow">
+                    <td id="header">
+                        <img id="headerImage" src="img/header.png" usemap="#test">
+                        <map name="test">
+                            <area id="home" shape="rect" coords="501, 11, 572, 37" href="index.html">
+                            <area id="download" shape="rect" coords="519, 40, 655, 67" href="download.html">
+                            <area id="features" shape="rect" coords="602, 70, 735, 97" href="features.html">
+                            <area id="github" shape="rect" coords="682, 100, 787, 132" href="https://github.com/PackProject/Caddie" target="_blank">
+                        </map>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="content" valign="top">
+                        <h1 class="top">Downloads</h1>
+
+                        <p><a href="https://github.com/PackProject/Caddie/releases/download/v0.1.0/caddie_20260120.zip">caddie_20260120.zip</a> - includes all supported regions (NTSC-U and PAL)</p>
+                        <h1>Install Guide</h1>
+
+                        <p>If you'd like to run Caddie on an emulator, skip to the <a href="#dolphin">Dolphin instructions</a>.
+                        Otherwise, the physical requirements are as follows:</p>
+
+                        <ul>
+                            <li>a Wii or Wii U console</li>
+                            <li>a <i>Wii Sports Resort</i> disc (NTSC-U or PAL)</li>
+                            <li>an SD card</li>
+                            <li>a device that can read SD cards through a slot or adapter</li>
+                        </ul>
+                        
+                        <p>1. <blue>Is the Homebrew Channel installed on your console?</blue> If not, you will
+                        need to <a href="https://wii.hacks.guide" target="_blank">follow this guide</a>.</p>
+
+                        <p>2. <blue>Is Riivolution on your SD card?</blue> If not, you will need to
+                        <a href="https://aerialx.github.io/rvlution.net/wiki/Riivolution/" target="_blank">download it here</a> and extract the ZIP.
+                        Copy the "apps" folder to the root of your SD card. If prompted to merge folders or 
+                        replace files, select "Yes".</p>
+                        
+                        <p>3. <blue>Download and extract the ZIP at the top of this page.</blue> Copy the "caddie" and "riivolution" folders to the root of your SD card. 
+                        If prompted to merge folders or replace files, select "Yes".</p>
+
+                        <p>4. <blue>With the SD card and the Resort disc in the console, launch Riivolution through the Homebrew channel.</blue> You 
+                        should have the following options:</p>
+
+                        <img src="img/riivo.png" width="400px">
+
+                        <p>Riivolution knows the region of your console, so by default it will only show options for your
+                        region. If you're trying to use Caddie with an in-region disc but an out-of-region console, please
+                        <a href="https://discord.gg/BW23QvJaZk" target="_blank">contact us</a>.
+
+                        <p>5. <blue>Set "Custom Code" to "Enabled" and press "Launch"</blue>. If everything works correctly,
+                        Wii Sports Resort will launch with some red text at the top that indicates that Caddie is running.</p>
+                        </p>
+
+                        <h1 id="dolphin">Dolphin Setup</h1>
+
+                        <p>For usage with <a href="https://dolphin-emu.org/" target="_blank">Dolphin Emulator</a>, you will still need to download and extract 
+                        the ZIP at the top of this page, but none of the other setup instructions listed above apply.</p>
+
+                        <p>Current versions of Dolphin have the Riivolution game patcher built in. This means you can use the provided
+                        patch files without needing to install Riivolution or perform any other setup. Simply right click on Wii Sports Resort
+                        in the Dolphin game list and click <green>Start With Riivolution Patches...</green>, which should display this menu:
+                        </p>
+
+                        <img src="img/riivodolphin.png">
+
+                        <p>Click "Open Riivolution XML...", then navigate to the "riivolution" folder in the downloaded Caddie files. Select "caddie_NTSC_U.xml"
+                        or "caddie_PAL.xml" depending on which region you have. You should see the following:
+                        </p>
+
+                        <img src="img/riivodolphin2.png">
+
+                        <p>Dolphin should be able to automatically determine the SD Root. Only change it if it's blank or something looks clearly wrong.
+                            Then, set Custom Code to "Enabled" and click "Start". If everything works correctly,
+                        Wii Sports Resort will launch with some red text at the top that indicates that Caddie is running.
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="footer" background="img/footer.png">
+                        <span id="credit">website by <a href="https://kataryn.com" target="_blank">cyndifusic</a> © 2026</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
