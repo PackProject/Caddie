@@ -21,10 +21,14 @@ void main() {
     // Always show exception handler
     static const u16 scEmptyCombo[] = {0};
     EGG::Exception::setUserCallback(scEmptyCombo);
+#endif
 
-    // Open symbol map
-    MapFile::GetInstance().LoadFromDVD("modules/main_NTSC_U.map",
-                                       MapFile::LINK_DYNAMIC);
+#ifdef CADDIE_REGION_NTSC_U
+   MapFile::GetInstance().LoadFromDVD("modules/main_NTSC_U.map",
+                                      MapFile::LINK_DYNAMIC);
+#elif CADDIE_REGION_PAL
+   MapFile::GetInstance().LoadFromDVD("modules/main_PAL.map",
+                                      MapFile::LINK_DYNAMIC);
 #endif
 
     // Skip MotionPlus video
@@ -43,7 +47,20 @@ void main() {
                     GlfSceneHook::OnUserDraw, GlfSceneHook::OnExit});
     // Disable pausing in the Golf scene
     SceneHookMgr::GetInstance().AllowPause(RPSysSceneCreator::SCENE_GLF, false);
+
+    SceneHookMgr::GetInstance().SetHook(
+    RPSysSceneCreator::SCENE_DGL,
+    (SceneHook){GlfSceneHook::OnConfigure, GlfSceneHook::OnCalculate,
+                GlfSceneHook::OnUserDraw, GlfSceneHook::OnExit});
+
+    SceneHookMgr::GetInstance().AllowPause(RPSysSceneCreator::SCENE_DGL, false);
 }
+#ifdef CADDIE_REGION_NTSC_U
 kmBranch(0x80230b60, main);
+#elif CADDIE_REGION_PAL
+kmBranch(0x80230e2c, main);
+#else
+#error "No region defined!"
+#endif
 
 } // namespace caddie

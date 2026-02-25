@@ -143,6 +143,7 @@ u32 GlfUtil::GetGamemodeNthHole(u32 n) {
     case Sp2::Glf::GM_SPECIAL:
         return 19 + n;
     }
+    return 1+n;
 }
 
 } // namespace caddie

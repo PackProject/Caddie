@@ -14,6 +14,11 @@ namespace caddie {
  * @brief Menu logic
  */
 void MenuMgr::Calc() {
+
+    if (mMenu == NULL || mOpenPage == NULL) {
+        return;
+    }
+
     CalcInput();
 
     // All players can control the menu
