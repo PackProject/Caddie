@@ -44,8 +44,7 @@ BuildInfo::BuildInfo() {
     }
 
     const f32 heapFreeKb = MemManager::GetFreeSize() / KB_AS_B;
-    SetTextFmt("Caddie (%s, %s): %s (%.1f KB free)", GetBuildTarget(),
-               GetBuildRegion(), GetBuildDate(), heapFreeKb);
+    SetTextFmt("Caddie (%s): %s", GetBuildRegion(), GetBuildDate(), heapFreeKb);
 }
 
 const math::VEC2 BuildInfo::sBuildTextPos(400.0f, 20.0f);
