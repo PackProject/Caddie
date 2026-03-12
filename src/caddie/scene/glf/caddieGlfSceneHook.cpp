@@ -502,65 +502,68 @@ void GlfSceneHook::Apply_Pin() {
  * @brief Apply wind settings from menu
  */
 void GlfSceneHook::Apply_Wind() {
-    int spd = GetMenu().GetWindSpd();
-    int dir = GetMenu().GetWindDir();
+    for (int i = 0; i < Sp2::Glf::HOLE_MAX; i++) {
+        int spd = GetMenu().GetWindSpd();
+        int dir = GetMenu().GetWindDir();
 
-    // Random wind speed
-    if (spd == WIND_SPD_RANDOM) {
-        // Wind range
-        int min = 0;
-        int max = Sp2::Glf::WIND_MAX;
+        // Random wind speed
+        if (spd == WIND_SPD_RANDOM) {
+            // Wind range
+            int min = 0;
+            int max = Sp2::Glf::WIND_MAX;
 
-        switch (GetMenu().GetWindSpdRange()) {
-        // 0-10 m/s (0-20 mph)
-        case RANGE_0_10:
-            max = 10;
-            break;
-        // 0-5 m/s (0-10 mph)
-        case RANGE_0_5:
-            max = 5;
-            break;
-        // 5-10 m/s (10-20 mph)
-        case RANGE_5_10:
-            min = 5;
-            max = 10;
-            break;
-        // 10-15 m/s (20-30 mph)
-        case RANGE_10_15:
-            min = 10;
-            break;
-        // 0-15 m/s (0-30 mph)
-        case RANGE_0_15:
-            // Min/max initialized to 0-15
-            break;
+            switch (GetMenu().GetWindSpdRange()) {
+            // 0-10 m/s (0-20 mph)
+            case RANGE_0_10:
+                max = 10;
+                break;
+            // 0-5 m/s (0-10 mph)
+            case RANGE_0_5:
+                max = 5;
+                break;
+            // 5-10 m/s (10-20 mph)
+            case RANGE_5_10:
+                min = 5;
+                max = 10;
+                break;
+            // 10-15 m/s (20-30 mph)
+            case RANGE_10_15:
+                min = 10;
+                break;
+            // 0-15 m/s (0-30 mph)
+            case RANGE_0_15:
+                // Min/max initialized to 0-15
+                break;
+            }
+
+            // Generate random speed
+            spd = Sp2::Rand(min, max + 1);
         }
 
-        // Generate random speed
-        spd = Sp2::Rand(min, max + 1);
-    }
+        // Random direction
+        if (dir == DIR_RND) {
+            dir = Sp2::Rand(Sp2::Glf::MAX_WIND_DIV);
+        }
 
-    // Random direction
-    if (dir == DIR_RND) {
-        dir = Sp2::Rand(Sp2::Glf::MAX_WIND_DIV);
-    }
+        // golf and FG have different static mem indices for wind
+        // determine which index to use, then set wind for the current hole
+        int windStaticMemIdx;
+        switch (RPSysSceneMgr::getInstance().getCurrentSceneID()) {
+            case RPSysSceneCreator::SCENE_GLF:
+                windStaticMemIdx = Sp2::Glf::VAR_WIND;
+                break;
+            case RPSysSceneCreator::SCENE_DGL:
+                windStaticMemIdx = 9;
+                break;
+            default:
+                CADDIE_ASSERT(false);
+                return;
+        }
 
-    // golf and FG have different static mem indices for wind
-    // determine which index to use, then set wind for the current hole
-    int windStaticMemIdx;
-    switch (RPSysSceneMgr::getInstance().getCurrentSceneID()) {
-        case RPSysSceneCreator::SCENE_GLF:
-            windStaticMemIdx = Sp2::Glf::VAR_WIND;
-            break;
-        case RPSysSceneCreator::SCENE_DGL:
-            windStaticMemIdx = 9;
-            break;
-        default:
-            CADDIE_ASSERT(false);
-            return;
+        Sp2::StaticMem::getInstance().setStaticVar(
+            windStaticMemIdx + i,
+            Sp2::Glf::PackWind(dir, spd), false);
     }
-    Sp2::StaticMem::getInstance().setStaticVar(
-        windStaticMemIdx + GetMenu().GetHoleInternal(),
-        Sp2::Glf::PackWind(dir, spd), false);
 }
 
 /**
