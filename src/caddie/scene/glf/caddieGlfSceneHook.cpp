@@ -442,6 +442,8 @@ void GlfSceneHook::Apply_Pin() {
     switch (nextHole) {
     // Hole 1
     case 1:
+        pin = Min<int>(pin, H1_PIN_MAX - 1);
+
         switch (pin) {
         // Random pin 1-3
         case H1_PIN_RND_ALL:
@@ -459,6 +461,8 @@ void GlfSceneHook::Apply_Pin() {
     case 19:
     case 20:
     case 21:
+        pin = Min<int>(pin, SP_PIN_MAX - 1);
+
         switch (pin) {
         // Random pin 1-6
         case SP_PIN_RND_ALL:
