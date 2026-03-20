@@ -42,6 +42,10 @@ void Timer::Reset() {
     mFrozenDuration = 0;
 }
 
+u32 Timer::GetCurrentTime() {
+    return mTimerValue;
+}
+
 void Timer::Freeze(u32 duration) {
     mFrozenValue = mTimerValue;
     mFrozenDuration = duration;

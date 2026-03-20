@@ -15,6 +15,7 @@ extern const char* MSG_WIND_SPD;
 extern const char* MSG_WIND_SPD_RANGE;
 extern const char* MSG_REPLAY_INFO;
 extern const char* MSG_RETRY_SHOT;
+extern const char* MSG_TIMER_DATA;
 extern const char* MSG_APPLY;
 extern const char* MSG_QUIT;
 
@@ -85,6 +86,15 @@ enum EWindSpdRange {
     RANGE_MAX
 };
 extern const char* ENUM_WIND_SPD_RANGE[RANGE_MAX];
+
+enum ETimerData {
+    NO_TIMER,
+    TIMER,
+    TIMER_AND_STATS,
+
+    TIMER_DATA_MAX
+};
+extern const char* ENUM_TIMER_DATA[TIMER_DATA_MAX];
 
 } // namespace caddie
 

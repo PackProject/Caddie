@@ -19,6 +19,7 @@ GlfMenu::GlfMenu()
       mWindSpd(MSG_WIND_SPD, ENUM_WIND_SPD, 0, WIND_SPD_RANDOM),
       mWindSpdRange(MSG_WIND_SPD_RANGE, ENUM_WIND_SPD_RANGE, 0,
                     CADDIE_ENUM_MAX(ENUM_WIND_SPD_RANGE)),
+    mTimerData(MSG_TIMER_DATA, ENUM_TIMER_DATA, 0, CADDIE_ENUM_MAX(ENUM_TIMER_DATA), 1),
     mReplayInfo(MSG_REPLAY_INFO, false),
     mRetryShotMenu(MSG_RETRY_SHOT, false),
     mApplyRestart(MSG_APPLY, Action_ApplyRestart, this),
@@ -30,6 +31,7 @@ GlfMenu::GlfMenu()
     GetRootPage().AppendOption(&mWindDir);
     GetRootPage().AppendOption(&mWindSpd);
     GetRootPage().AppendOption(&mWindSpdRange);
+    GetRootPage().AppendOption(&mTimerData);
     GetRootPage().AppendOption(&mReplayInfo);
     GetRootPage().AppendOption(&mRetryShotMenu);
     GetRootPage().AppendOption(&mApplyRestart);

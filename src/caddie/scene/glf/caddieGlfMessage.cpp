@@ -30,6 +30,15 @@ const char* MSG_REPLAY_INFO = "Show Replay Info";
 //! @brief Text for Retry Shot Menu option
 const char* MSG_RETRY_SHOT = "Enable Retry Shot Menu";
 
+//! @brief Text for Timer Data
+const char* MSG_TIMER_DATA = "Enable Timer Data";
+//! @brief Text for Timer Data options
+const char* ENUM_TIMER_DATA[TIMER_DATA_MAX] = {
+    "No Timer",
+    "Timer",
+    "Timer + Stats"
+};
+
 //! @brief Text for Apply and Restart option
 const char* MSG_APPLY = "Apply and Restart";
 

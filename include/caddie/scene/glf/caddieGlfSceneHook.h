@@ -2,6 +2,7 @@
 #define CADDIE_SCENE_GLF_SCENE_HOOK_H
 
 #include "caddieTimer.h"
+#include "caddieTimerData.h"
 
 #include "types_caddie.h"
 
@@ -52,6 +53,7 @@ private:
     static bool sDidStopShot;
 
     static Timer* sTimer;
+    static TimerData* sTimerData;
 };
 
 } // namespace caddie

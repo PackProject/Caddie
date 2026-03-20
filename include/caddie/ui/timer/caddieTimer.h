@@ -19,6 +19,8 @@ namespace caddie {
         void Stop();
         void Reset();
 
+        u32 GetCurrentTime();
+
         void Freeze(u32 duration);
 
         virtual void Calc();

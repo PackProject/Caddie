@@ -78,9 +78,16 @@ void GlfSceneHook::OnConfigure(RPSysScene* scene) {
         sTimer = new Timer();
         CADDIE_ASSERT(sTimer != NULL);
     }
+    // setup timer data
+    if (sTimerData == NULL) {
+        sTimerData = new TimerData();
+        CADDIE_ASSERT(sTimerData != NULL);
+    }
     // start timer
     sTimer->Reset();
     sTimer->Start();
+
+
 
     if (sGlfPostMenu == NULL) {
         sGlfPostMenu = new GlfPostMenu();
@@ -124,6 +131,11 @@ void GlfSceneHook::OnCalculate(RPSysScene* scene) {
     if (sTimer != NULL) {
         sTimer->Calc();
     }
+
+    // update timer data
+    if (sTimerData != NULL) {
+        sTimerData->Calc();
+    }
 }
 
 void GlfSceneHook::OnPausedSeqMgrCalc() {
@@ -165,8 +177,12 @@ CADDIE_LOCALIZE(kmCall(0x803f8754, GlfSceneHook::OnNextShot), // NTSC_U
 );
 
 void GlfSceneHook::OnUserDraw(RPSysScene* scene) {
-    if (sTimer != NULL) {
+    if (sTimer != NULL && sGlfMenu->GetTimerDataOption() != NO_TIMER) {
         sTimer->Draw();
+    }
+
+    if (sTimerData != NULL && sGlfMenu->GetTimerDataOption() == TIMER_AND_STATS) {
+        sTimerData->Draw();
     }
 
     if (!MenuMgr::GetInstance().IsVisible()) {
@@ -382,6 +398,15 @@ CADDIE_LOCALIZE(kmBranch(0x80404b10, GlfSceneHook::DrawReplaySphere), // NTSC_U
  * @param scene Current scene
  */
 void GlfSceneHook::OnExit(RPSysScene* scene) {
+    if (sTimer != NULL) {
+        // store timer data
+        if (!GetMenu().IsAwaitingApply()) sTimerData->EnterTime(sTimer->GetCurrentTime());
+
+        //delete timer
+        delete sTimer;
+        sTimer = NULL;
+    }
+
     // Do not delete menu if settings are waiting to be applied
     if (GetMenu().CanDelete()) {
         delete sGlfMenu;
@@ -390,10 +415,6 @@ void GlfSceneHook::OnExit(RPSysScene* scene) {
     // Apply static mem settings
     else {
         Apply_StaticMem();
-    }
-    if (sTimer != NULL) {
-        delete sTimer;
-        sTimer = NULL;
     }
 }
 
@@ -693,6 +714,7 @@ GlfPostMenu& GlfSceneHook::GetPostMenu() {
 
 GlfMenu* GlfSceneHook::sGlfMenu = NULL;
 Timer* GlfSceneHook::sTimer = NULL;
+TimerData* GlfSceneHook::sTimerData = NULL;
 GlfPostMenu* GlfSceneHook::sGlfPostMenu = NULL;
 
 } // namespace caddie

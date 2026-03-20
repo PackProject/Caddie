@@ -40,6 +40,7 @@ struct Pane;
 struct TextBox;
 
 struct Timer;
+struct TimerData;
 
 // scene/glf
 struct GlfMenu;

@@ -34,6 +34,10 @@ public:
         return static_cast<EWindSpdRange>(mWindSpdRange.GetSavedValue());
     }
 
+    ETimerData GetTimerDataOption() const { 
+        return static_cast<ETimerData>(mTimerData.GetSavedValue()); 
+    }
+
     bool GetReplayInfo() const { return mReplayInfo.GetSavedValue(); }
     bool GetRetryShotMenu() const { return mRetryShotMenu.GetSavedValue(); }
 
@@ -46,6 +50,7 @@ private:
     MenuEnumOption mWindSpdRange;
     MenuBoolOption mReplayInfo;
     MenuBoolOption mRetryShotMenu;
+    MenuEnumOption mTimerData;
     MenuActionOption mApplyRestart;
     MenuActionOption mQuitGame;
 
