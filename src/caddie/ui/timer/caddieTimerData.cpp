@@ -14,7 +14,7 @@ namespace caddie {
         mNextIndex(0),
         mTextBox() {}
 
-    const nw4r::math::VEC2 TimerData::sTimerDataPos(25.0f, 325.0f);
+    const nw4r::math::VEC2 TimerData::sTimerDataPos(25.0f, 375.0f);
 
     TimerData::~TimerData() {}
 
@@ -75,12 +75,32 @@ namespace caddie {
         return averageTime;
     }
 
+    u32 TimerData::GetLatestTime() const {
+        if (mCurrMaxTimesSaved == 0) return 0;
+
+        u32 latestTime;
+
+        if(mNextIndex == 0) {
+            latestTime = mSavedTimeValues[mCurrTimesSaved - 1];
+        } else {
+            latestTime = mSavedTimeValues[mNextIndex - 1];
+        }
+
+        return latestTime;
+    }
+
     void TimerData::Calc() {
         mTextBox.SetPosition(sTimerDataPos);
         float bestTime = GetBestTime() / 60.0f;
         float worstTime = GetWorstTime() / 60.0f;
         float averageTime = GetAverageTime() / 60.0f;
-        mTextBox.SetTextFmt("Best: %.2f\nWorst: %.2f\nAverage: %.2f\n", bestTime, worstTime, averageTime);
+        float latestTime = GetLatestTime() / 60.0f;
+        float latestTimeDiff = latestTime - averageTime;
+        const char* latestTimeNotation = (latestTimeDiff < 0) ? "-" : "+";
+        mTextBox.SetTextFmt(
+            "Latest: %.2f (%s%.2f)\nBest: %.2f\nWorst: %.2f\nAverage: %.2f\n", 
+            latestTime, latestTimeNotation, latestTimeDiff, bestTime, worstTime, averageTime
+        );
         mTextBox.SetStroke(TextBox::STROKE_OUTLINE);
     }
 

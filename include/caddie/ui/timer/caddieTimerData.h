@@ -24,6 +24,7 @@ namespace caddie {
         u32 GetBestTime() const;
         u32 GetWorstTime() const;
         u32 GetAverageTime() const;
+        u32 GetLatestTime() const;
 
         virtual void Calc();
         virtual void Draw();

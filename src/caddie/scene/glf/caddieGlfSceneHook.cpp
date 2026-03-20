@@ -401,6 +401,7 @@ void GlfSceneHook::OnExit(RPSysScene* scene) {
     if (sTimer != NULL) {
         // store timer data
         if (!GetMenu().IsAwaitingApply()) sTimerData->EnterTime(sTimer->GetCurrentTime());
+        else sTimerData->ResetData();
 
         //delete timer
         delete sTimer;
