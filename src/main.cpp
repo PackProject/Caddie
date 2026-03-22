@@ -10,6 +10,9 @@
 
 namespace caddie {
 
+static const char* MAPFILE_PATH =
+    "modules/main_" CADDIE_LOCALIZE("NTSC_U", "PAL", "NTSC_J", "KOR") ".map";
+
 /**
  * @brief Mod entrypoint
  */
@@ -22,14 +25,8 @@ void main() {
     static const u16 scEmptyCombo[] = {0};
     EGG::Exception::setUserCallback(scEmptyCombo);
 
-#ifdef CADDIE_REGION_NTSC_U
-   MapFile::GetInstance().LoadFromDVD("modules/main_NTSC_U.map",
-                                      MapFile::LINK_DYNAMIC);
-#elif CADDIE_REGION_PAL
-   MapFile::GetInstance().LoadFromDVD("modules/main_PAL.map",
-                                      MapFile::LINK_DYNAMIC);
+    MapFile::GetInstance().LoadFromDVD(MAPFILE_PATH, MapFile::LINK_DYNAMIC);
 #endif
-#endif // !defined(NDEBUG)
 
     // Skip MotionPlus video
     RPSysProjectLocal::getInstance().setMPlusVideoSeen(true);
@@ -49,18 +46,16 @@ void main() {
     SceneHookMgr::GetInstance().AllowPause(RPSysSceneCreator::SCENE_GLF, false);
 
     SceneHookMgr::GetInstance().SetHook(
-    RPSysSceneCreator::SCENE_DGL,
-    (SceneHook){GlfSceneHook::OnConfigure, GlfSceneHook::OnCalculate,
-                GlfSceneHook::OnUserDraw, GlfSceneHook::OnExit});
+        RPSysSceneCreator::SCENE_DGL,
+        (SceneHook){GlfSceneHook::OnConfigure, GlfSceneHook::OnCalculate,
+                    GlfSceneHook::OnUserDraw, GlfSceneHook::OnExit});
 
     SceneHookMgr::GetInstance().AllowPause(RPSysSceneCreator::SCENE_DGL, false);
 }
-#ifdef CADDIE_REGION_NTSC_U
-kmBranch(0x80230b60, main);
-#elif CADDIE_REGION_PAL
-kmBranch(0x80230e2c, main);
-#else
-#error "No region defined!"
-#endif
+CADDIE_LOCALIZE(kmBranch(0x80230b60, main), // NTSC_U
+                kmBranch(0x80230e2c, main), // PAL
+                kmBranch(0x80230b14, main), // NTSC_J
+                CADDIE_NOTIMPLEMENTED       // KOR
+);
 
 } // namespace caddie

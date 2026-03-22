@@ -7,8 +7,8 @@
 #include "caddieMenuMgr.h"
 
 #include <RP/RPSystem.h>
-#include <RP/RPSystem/RPSysSceneMgr.h>
 #include <RP/RPSystem/RPSysSceneCreator.h>
+#include <RP/RPSystem/RPSysSceneMgr.h>
 #include <RPGraphics/RPGrpRenderer.h>
 #include <RevoSDK/MTX.h>
 #include <Sports2/Scene/Glf/RPGlfBall.h>
@@ -45,13 +45,17 @@
 // Convert yards to world units.
 #define YD(X) ((f32)(X) * 10.0f / 1.094f)
 
-#if CADDIE_REGION_NTSC_U
-kmWrite32(0x803f8778, 0x60000000);
-kmWrite32(0x803f878c, 0x60000000);
-#elif CADDIE_REGION_PAL
-kmWrite32(0x803f8a98, 0x60000000);
-kmWrite32(0x803f8aac, 0x60000000);
-#endif
+CADDIE_LOCALIZE(kmWrite32(0x803f8778, 0x60000000), // NTSC_U
+                kmWrite32(0x803f8a98, 0x60000000), // PAL
+                kmWrite32(0x803f86ec, 0x60000000), // NTSC_J
+                CADDIE_NOTIMPLEMENTED              // KOR
+);
+
+CADDIE_LOCALIZE(kmWrite32(0x803f878c, 0x60000000), // NTSC_U
+                kmWrite32(0x803f8aac, 0x60000000), // PAL
+                kmWrite32(0x803f8700, 0x60000000), // NTSC_J
+                CADDIE_NOTIMPLEMENTED              // KOR
+);
 
 namespace caddie {
 
@@ -111,8 +115,7 @@ void GlfSceneHook::OnCalculate(RPSysScene* scene) {
         bool paused = Sp2::Glf::GlfMain::getInstance().getPause();
         if (paused) {
             sTimer->Stop();
-        }
-        else {
+        } else {
             sTimer->Start();
         }
     }
@@ -130,12 +133,11 @@ void GlfSceneHook::OnPausedSeqMgrCalc() {
 
     Sp2::Glf::SequenceMgr::getInstance().Calculate();
 }
-
-#if CADDIE_REGION_NTSC_U
-kmCall(0x804175e8, GlfSceneHook::OnPausedSeqMgrCalc);
-#elif CADDIE_REGION_PAL
-kmCall(0x80417908, GlfSceneHook::OnPausedSeqMgrCalc);
-#endif
+CADDIE_LOCALIZE(kmCall(0x804175e8, GlfSceneHook::OnPausedSeqMgrCalc), // NTSC_U
+                kmCall(0x80417908, GlfSceneHook::OnPausedSeqMgrCalc), // PAL
+                kmCall(0x8041755c, GlfSceneHook::OnPausedSeqMgrCalc), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                                 // KOR
+);
 
 void GlfSceneHook::OnNextShot() {
     sTimer->Freeze(90);
@@ -156,12 +158,11 @@ void GlfSceneHook::OnNextShot() {
     MenuMgr::GetInstance().OpenMenu(sGlfPostMenu);
     MenuMgr::GetInstance().SetVisible(true);
 }
-
-#if CADDIE_REGION_NTSC_U
-kmCall(0x803f8754, GlfSceneHook::OnNextShot);
-#elif CADDIE_REGION_PAL
-kmCall(0x803f8a74, GlfSceneHook::OnNextShot);
-#endif
+CADDIE_LOCALIZE(kmCall(0x803f8754, GlfSceneHook::OnNextShot), // NTSC_U
+                kmCall(0x803f8a74, GlfSceneHook::OnNextShot), // PAL
+                kmCall(0x803f86c8, GlfSceneHook::OnNextShot), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                         // KOR
+);
 
 void GlfSceneHook::OnUserDraw(RPSysScene* scene) {
     if (sTimer != NULL) {
@@ -180,8 +181,7 @@ void GlfSceneHook::OnUserDraw(RPSysScene* scene) {
 
     // Current pin display
     // only show in glf scene
-    if (scene->getSceneID() == RPSysSceneCreator::SCENE_GLF)
-    {
+    if (scene->getSceneID() == RPSysSceneCreator::SCENE_GLF) {
         u32 hole = Sp2::Glf::GlfConfig::getInstance().getCurrentHole();
         u32 pin = Sp2::Glf::GlfConfig::getInstance().getPin();
 
@@ -273,12 +273,11 @@ void GlfSceneHook::DrawPutterGuide(const nw4r::math::VEC3* pPoints, u16 num,
         EGG::DrawGX::DrawLineStrip(pPoints, num, color, width);
     }
 }
-
-#if CADDIE_REGION_NTSC_U
-kmCall(0x803fab74, GlfSceneHook::DrawPutterGuide);
-#elif CADDIE_REGION_PAL
-kmCall(0x803fae94, GlfSceneHook::DrawPutterGuide);
-#endif
+CADDIE_LOCALIZE(kmCall(0x803fab74, GlfSceneHook::DrawPutterGuide), // NTSC_U
+                kmCall(0x803fae94, GlfSceneHook::DrawPutterGuide), // PAL
+                kmCall(0x803faae8, GlfSceneHook::DrawPutterGuide), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                              // KOR
+);
 
 void GlfSceneHook::DrawReplaySphere() {
     if (RPGrpRenderer::GetDrawPass() != RPGrpRenderer::EDrawPass_DrawXLU) {
@@ -371,12 +370,11 @@ void GlfSceneHook::DrawReplaySphere() {
     }
     EGG::DrawGX::s_cameraMtx = old;
 }
-
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x80404b10, GlfSceneHook::DrawReplaySphere);
-#elif CADDIE_REGION_PAL
-kmBranch(0x80404e30, GlfSceneHook::DrawReplaySphere);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x80404b10, GlfSceneHook::DrawReplaySphere), // NTSC_U
+                kmBranch(0x80404e30, GlfSceneHook::DrawReplaySphere), // PAL
+                kmBranch(0x80404a84, GlfSceneHook::DrawReplaySphere), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                                 // KOR
+);
 
 /**
  * @brief Golf scene exit callback
@@ -549,20 +547,19 @@ void GlfSceneHook::Apply_Wind() {
         // determine which index to use, then set wind for the current hole
         int windStaticMemIdx;
         switch (RPSysSceneMgr::getInstance().getCurrentSceneID()) {
-            case RPSysSceneCreator::SCENE_GLF:
-                windStaticMemIdx = Sp2::Glf::VAR_WIND;
-                break;
-            case RPSysSceneCreator::SCENE_DGL:
-                windStaticMemIdx = 9;
-                break;
-            default:
-                CADDIE_ASSERT(false);
-                return;
+        case RPSysSceneCreator::SCENE_GLF:
+            windStaticMemIdx = Sp2::Glf::VAR_WIND;
+            break;
+        case RPSysSceneCreator::SCENE_DGL:
+            windStaticMemIdx = 9;
+            break;
+        default:
+            CADDIE_ASSERT(false);
+            return;
         }
 
         Sp2::StaticMem::getInstance().setStaticVar(
-            windStaticMemIdx + i,
-            Sp2::Glf::PackWind(dir, spd), false);
+            windStaticMemIdx + i, Sp2::Glf::PackWind(dir, spd), false);
     }
 }
 
@@ -586,12 +583,11 @@ void GlfSceneHook::Apply_GlfConfig() {
     Apply_RepeatHole();
     Apply_Pin();
 }
-
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x8040680c, GlfSceneHook::Apply_GlfConfig);
-#elif CADDIE_REGION_PAL
-kmBranch(0x80406b2c, GlfSceneHook::Apply_GlfConfig);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x8040680c, GlfSceneHook::Apply_GlfConfig), // NTSC_U
+                kmBranch(0x80406b2c, GlfSceneHook::Apply_GlfConfig), // PAL
+                kmBranch(0x80406780, GlfSceneHook::Apply_GlfConfig), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                                // KOR
+);
 
 /**
  * @brief Allow shot to be canceled by holding B + MINUS + 2
@@ -626,23 +622,22 @@ void GlfSceneHook::OnGlfBallCalc(RPGlfBall* ball, u32 frame, u32) {
 
     ball->Calc(frame);
 }
-
-#if CADDIE_REGION_NTSC_U
-kmCall(0x80414754, GlfSceneHook::OnGlfBallCalc);
-#elif CADDIE_REGION_PAL
-kmCall(0x80414a74, GlfSceneHook::OnGlfBallCalc);
-#endif
+CADDIE_LOCALIZE(kmCall(0x80414754, GlfSceneHook::OnGlfBallCalc), // NTSC_U
+                kmCall(0x80414a74, GlfSceneHook::OnGlfBallCalc), // PAL
+                kmCall(0x804146c8, GlfSceneHook::OnGlfBallCalc), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                            // KOR
+);
 
 /**
  * @brief Disable Golf tutorial
  */
 bool GlfSceneHook::ShouldShowTutorial() { return false; }
-
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x803fa370, GlfSceneHook::ShouldShowTutorial);
-#elif CADDIE_REGION_PAL
-kmBranch(0x803fa690, GlfSceneHook::ShouldShowTutorial);
-#endif
+CADDIE_LOCALIZE(
+    kmBranch(0x803fa370, GlfSceneHook::ShouldShowTutorial), // NTSC_U
+    kmBranch(0x803fa690, GlfSceneHook::ShouldShowTutorial), // PAL
+    kmBranch(0x803fa2e4, GlfSceneHook::ShouldShowTutorial), // NTSC_J
+    CADDIE_NOTIMPLEMENTED                                   // KOR
+);
 
 /**
  * @brief Check whether the next hole can be played
@@ -651,11 +646,11 @@ kmBranch(0x803fa690, GlfSceneHook::ShouldShowTutorial);
 bool GlfSceneHook::CanPlayNextHole() {
     return GetMenu().GetRepeatHole() ? true : !GlfUtil::IsNextRoundOver();
 }
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x80406554, GlfSceneHook::CanPlayNextHole);
-#elif CADDIE_REGION_PAL
-kmBranch(0x80406874, GlfSceneHook::CanPlayNextHole);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x80406554, GlfSceneHook::CanPlayNextHole), // NTSC_U
+                kmBranch(0x80406874, GlfSceneHook::CanPlayNextHole), // PAL
+                kmBranch(0x804064c8, GlfSceneHook::CanPlayNextHole), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                                // KOR
+);
 
 /**
  * @brief Number of holes played in the match
@@ -677,11 +672,11 @@ u32 GlfSceneHook::GetNumHolesPlayed() {
     // Vanilla behavior
     return gmCurrent - gmFirst;
 }
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x80405f1c, GlfSceneHook::GetNumHolesPlayed);
-#elif CADDIE_REGION_PAL
-kmBranch(0x8040623c, GlfSceneHook::GetNumHolesPlayed);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x80405f1c, GlfSceneHook::GetNumHolesPlayed), // NTSC_U
+                kmBranch(0x8040623c, GlfSceneHook::GetNumHolesPlayed), // PAL
+                kmBranch(0x80405e90, GlfSceneHook::GetNumHolesPlayed), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                                  // KOR
+);
 
 /**
  * @brief Access golf menu

@@ -1,8 +1,8 @@
-from sys import argv
-from os import path, walk, makedirs
-from shutil import rmtree
 from argparse import ArgumentParser
-from subprocess import run, PIPE
+from os import makedirs, path, walk
+from shutil import rmtree
+from subprocess import PIPE, run
+from sys import argv
 
 AS = "tools\\powerpc-eabi-as.exe"
 ASFLAGS = "-mgekko -I include"
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     # Parse args
     parser = ArgumentParser()
     parser.add_argument(
-        "--region", choices=["NTSC_U", "PAL"], required=True, help="Region to build")
+        "--region", choices=["NTSC_U", "PAL", "NTSC_J"], required=True, help="Region to build")
     parser.add_argument("--define", required=False,
                         help="Optional user define. Usually NDEBUG")
     parser.add_argument("--flags", required=False,

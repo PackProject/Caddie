@@ -42,6 +42,8 @@ typedef enum { FALSE, TRUE } BOOL;
 #error "No language defined!"
 #endif
 
+#define CADDIE_NOTIMPLEMENTED ((void)0)
+
 #define CADDIE_ENUM_MAX(enum) (ARRAY_COUNT((enum)) - 1)
 
 #endif

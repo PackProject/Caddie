@@ -37,7 +37,11 @@ void SceneHookMgr::DoConfigure() {
         hookMgr.mGlobalSceneHook.onConfigure(GetCurrentScene());
     }
 }
-kmBranch(0x801c389c, SceneHookMgr::DoConfigure);
+CADDIE_LOCALIZE(kmBranch(0x801c389c, SceneHookMgr::DoConfigure), // NTSC_U
+                kmBranch(0x801c389c, SceneHookMgr::DoConfigure), // PAL
+                kmBranch(0x801c389c, SceneHookMgr::DoConfigure), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                            // KOR
+);
 
 /**
  * @brief Dispatch scene hook Calculate callback
@@ -54,11 +58,11 @@ void SceneHookMgr::DoCalculate() {
         hookMgr.mGlobalSceneHook.onCalculate(GetCurrentScene());
     }
 }
-#ifdef CADDIE_REGION_NTSC_U
-kmBranch(0x8022f8f8, SceneHookMgr::DoCalculate);
-#elif CADDIE_REGION_PAL
-kmBranch(0x80232c64, SceneHookMgr::DoCalculate);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x8022f8f8, SceneHookMgr::DoCalculate), // NTSC_U
+                kmBranch(0x80232c64, SceneHookMgr::DoCalculate), // PAL
+                kmBranch(0x8022f8f8, SceneHookMgr::DoCalculate), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                            // KOR
+);
 
 /**
  * @brief Dispatch scene hook UserDraw callback
@@ -75,11 +79,11 @@ void SceneHookMgr::DoUserDraw() {
         hookMgr.mGlobalSceneHook.onUserDraw(GetCurrentScene());
     }
 }
-#if CADDIE_REGION_NTSC_U
-kmBranch(0x802542a8, SceneHookMgr::DoUserDraw);
-#elif CADDIE_REGION_PAL
-kmBranch(0x802545c8, SceneHookMgr::DoUserDraw);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x802542a8, SceneHookMgr::DoUserDraw), // NTSC_U
+                kmBranch(0x802545c8, SceneHookMgr::DoUserDraw), // PAL
+                kmBranch(0x802541f8, SceneHookMgr::DoUserDraw), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                           // KOR
+);
 
 /**
  * @brief Dispatch scene hook Exit callback
@@ -96,11 +100,11 @@ void SceneHookMgr::DoExit() {
         hookMgr.mGlobalSceneHook.onExit(GetCurrentScene());
     }
 }
-#ifdef CADDIE_REGION_NTSC_U
-kmBranch(0x8022f6f4, SceneHookMgr::DoExit);
-#elif CADDIE_REGION_PAL
-kmBranch(0x8022f96c, SceneHookMgr::DoExit);
-#endif
+CADDIE_LOCALIZE(kmBranch(0x8022f6f4, SceneHookMgr::DoExit), // NTSC_U
+                kmBranch(0x8022f96c, SceneHookMgr::DoExit), // PAL
+                kmBranch(0x8022f6f4, SceneHookMgr::DoExit), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                       // KOR
+);
 
 /**
  * @brief Update pause manager
@@ -113,10 +117,10 @@ void SceneHookMgr::DoUpdatePause() {
         RPSysPauseMgr::getInstance().update();
     }
 }
-#ifdef CADDIE_REGION_NTSC_U
-kmCall(0x80232984, SceneHookMgr::DoUpdatePause);
-#elif CADDIE_REGION_PAL
-kmCall(0x80232c50, SceneHookMgr::DoUpdatePause);
-#endif
+CADDIE_LOCALIZE(kmCall(0x80232984, SceneHookMgr::DoUpdatePause), // NTSC_U
+                kmCall(0x80232c50, SceneHookMgr::DoUpdatePause), // PAL
+                kmCall(0x80232938, SceneHookMgr::DoUpdatePause), // NTSC_J
+                CADDIE_NOTIMPLEMENTED                            // KOR
+);
 
 } // namespace caddie
